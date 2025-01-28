@@ -1,4 +1,4 @@
-import express, { request,response } from 'express';
+import express, { Request, Response } from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 
@@ -26,6 +26,12 @@ app.use(
 app.use('/api/v1/partner', partnerRoutes);
 app.use('/api/v1/order', orderRoutes);
 
+app.get('/', (request:any,response:any) => {
+  return response.json({
+    success: true,
+    message: 'Welcome to the API',
+  })
+})
 
 
 
