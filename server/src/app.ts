@@ -1,0 +1,34 @@
+import express, { request,response } from 'express';
+import dotenv from 'dotenv';
+import connectDB from './config/db.js';
+
+import partnerRoutes from './routes/partner.js';
+import orderRoutes from './routes/order.js';
+import cors from 'cors';
+
+dotenv.config();
+connectDB();
+const port = process.env.PORT || 8000;
+const CLIENT: any  = process.env.CLIENTURI;
+const app = express();
+
+
+app.use(express.json());
+
+app.use(
+  cors({
+    origin: [CLIENT],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
+
+app.use('/api/v1/partner', partnerRoutes);
+app.use('/api/v1/order', orderRoutes);
+
+
+
+
+app.listen(port, () => {
+  console.log(`server is working on http://localhost:${port}`);
+})
