@@ -67,8 +67,8 @@ To set up the project locally, follow these steps:
      ```bash
      ->.env
         MONGO_URI = 
-        PORT = 
-        CLIENT_URL = 
+        PORT = 3000
+        CLIENT_URL = http://localhost:5173/
      ```
    - Start the backend server:
 
@@ -86,11 +86,15 @@ To set up the project locally, follow these steps:
 3. **Set up the frontend:**
 
    ```bash
-   cd ../client
+   cd client
    npm install
    ```
 
    - Start the frontend application:
+     ```bash
+     ->.env
+        VITE_BASE_URL = http://localhost:3000/api/v1/
+     ```
 
      ```bash
      npm run start
