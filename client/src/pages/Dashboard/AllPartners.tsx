@@ -3,6 +3,9 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Butto
 import { useNavigate } from "react-router-dom";
 import apiCall from "../../hooks/api/api";
 
+const BASE_URL:string = import.meta.env.VITE_BASE_URL;
+
+
 interface Partner {
   _id: string;
   name: string;
@@ -23,7 +26,8 @@ const AllPartners = () => {
   useEffect(() => {
     const fetchPartners = async () => {
       try {
-        const response: any = await apiCall("http://localhost:3000/api/v1/partner/getAllPartners", "GET");
+        const allOrders = BASE_URL + 'partner/getAllPartners';
+        const response: any = await apiCall(allOrders, "GET");
         console.log('res ', response);
         setPartners(response.partners);
       } catch (error) {

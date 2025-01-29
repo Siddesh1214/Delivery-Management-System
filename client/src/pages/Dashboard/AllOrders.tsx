@@ -1,14 +1,3 @@
-// import React from 'react'
-
-// const AllOrders = () => {
-//   return (
-//     <div>AllOrders</div>
-//   )
-// }
-
-// export default AllOrders
-
-
 import React, { useEffect, useState } from "react";
 import {
   Table,
@@ -26,6 +15,9 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import apiCall from "../../hooks/api/api";
+
+const BASE_URL: string = import.meta.env.VITE_BASE_URL;
+
 
 interface Order {
   customer: {
@@ -78,7 +70,8 @@ const OrderTable = () => {
   useEffect(() => {
     const fetchPartners = async () => {
       try {
-        const response: any = await apiCall("http://localhost:3000/api/v1/order/getAllOrders", "GET");
+        const allOrders = BASE_URL + 'order/getAllOrders';
+        const response: any = await apiCall(allOrders, "GET");
         console.log('res ', response);
         setAllOrders(response.orders);
       } catch (error) {
@@ -105,9 +98,7 @@ const OrderTable = () => {
   
   const paginatedOrders = allOrders.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
   
-  // const getStatusColor = (status: "active" | "inactive") => {
-  //   return status === "active" ? "primary" : "secondary";  // green for active, default for inactive
-  // };
+  
   const getStatusColor = (status:string) => {
     switch (status) {
       case "pending":
@@ -129,49 +120,6 @@ const OrderTable = () => {
       <Typography variant="h4" gutterBottom>
         Orders Table
       </Typography>
-      {/* <TableContainer component={Paper} sx={{ maxHeight: 500 }}>
-        <Table stickyHeader>
-          <TableHead>
-            <TableRow>
-              <TableCell>Order Number</TableCell>
-              <TableCell>Customer Name</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell>Area</TableCell>
-              <TableCell>Items</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Scheduled For</TableCell>
-              <TableCell>Assigned To</TableCell>
-              <TableCell>Total Amount</TableCell>
-              <TableCell>Created At</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {allOrders.map((order) => (
-              <TableRow key={order._id}>
-                <TableCell>{order.orderNumber}</TableCell>
-                <TableCell>{order.customer.name}</TableCell>
-                <TableCell>{order.customer.phone}</TableCell>
-                <TableCell>{order.area}</TableCell>
-                <TableCell>
-                  {order.items.map((item) => (
-                    <Box key={item._id}>
-                      {item.name} (Qty: {item.quantity}, Price: {item.price})
-                    </Box>
-                  ))}
-                </TableCell>
-                <TableCell>{order.status}</TableCell>
-                <TableCell>{new Date(order.scheduledFor).toLocaleString()}</TableCell>
-                <TableCell>
-                  {order.assignedTo.name} (Shift: {order.assignedTo.shift.start}-
-                  {order.assignedTo.shift.end}, Rating: {order.assignedTo.metrics.rating})
-                </TableCell>
-                <TableCell>{order.totalAmount}</TableCell>
-                <TableCell>{new Date(order.createdAt).toLocaleString()}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer> */}
       <TableContainer
         component={Paper}
         sx={{

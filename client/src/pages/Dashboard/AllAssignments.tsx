@@ -1,14 +1,3 @@
-// import React from 'react'
-
-// const AllAssignments = () => {
-//   return (
-//     <div>AllAssignments</div>
-//   )
-// }
-
-// export default AllAssignments
-
-
 import React, { useEffect, useState } from "react";
 import {
   Table,
@@ -25,7 +14,10 @@ import {
   Chip,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import apiCall from "../../hooks/api/api";
+import apiCall from "../../hooks/api/api"; 
+
+const BASE_URL:string = import.meta.env.VITE_BASE_URL;
+
 
 interface Assignment {
   createdAt: string | number | Date;
@@ -80,8 +72,9 @@ const AssignmentTable = () => {
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
+        const allAssignments = BASE_URL + 'order/getAllAssignmentsDetails';
         const response: any = await apiCall(
-          "http://localhost:3000/api/v1/order/getAllAssignmentsDetails",
+          allAssignments,
           "GET"
         );
         console.log(response);
