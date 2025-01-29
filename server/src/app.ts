@@ -30,6 +30,7 @@ app.get('/', (request:any,response:any) => {
   return response.json({
     success: true,
     message: 'Welcome to the API',
+    clientUri: `client uri is ${CLIENT}`
   })
 })
 
@@ -37,4 +38,5 @@ app.get('/', (request:any,response:any) => {
 
 app.listen(port, () => {
   console.log(`server is working on http://localhost:${port}`);
+  console.log(`client uri is ${CLIENT}`);
 })
