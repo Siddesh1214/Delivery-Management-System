@@ -16,7 +16,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: process.env.CLIENTURI,
+    origin: process.env.CLIENT_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -29,7 +29,7 @@ app.get('/', (request:any,response:any) => {
   return response.json({
     success: true,
     message: 'Welcome to the API',
-    clientUri: `client uri is ${process.env.CLIENTURI}`
+    clientUri: `client url is ${process.env.CLIENT_URL}`
   })
 })
 
@@ -37,5 +37,5 @@ app.get('/', (request:any,response:any) => {
 
 app.listen(port, () => {
   console.log(`server is working on http://localhost:${port}`);
-  console.log(`client uri is ${process.env.CLIENTURI}`);
+  console.log(`client url is ${process.env.CLIENT_URL}`);
 })
